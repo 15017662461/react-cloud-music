@@ -9,6 +9,7 @@ import { HashRouter } from 'react-router-dom';
 import { Data } from './application/Singers/data';
 
 function App () {
+
   return (
     <Provider store={store}>
       <HashRouter>

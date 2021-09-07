@@ -9,6 +9,7 @@ import style from "../../assets/global-style";
 import { connect } from 'react-redux';
 import { getAlbumList, changeEnterLoading } from './store/actionCreators'
 import Loading from '../../baseUI/loading/index';
+import MusicNote from "../../baseUI/music-note/index";
 
 export const HEADER_HEIGHT = 45;
 
@@ -21,10 +22,11 @@ function Album(props) {
   const [isMarquee, setIsMarquee] = useState(false);// 是否跑马灯
 
   const headerEl = useRef();
+  const musicNoteRef = useRef();
 
   const id = props.match.params.id
 
-  const { currentAlbum: currentAlbumImmutable, enterLoading } = props;
+  const { currentAlbum: currentAlbumImmutable, enterLoading,songsCount } = props;
   const { getAlbumDataDispatch } = props;
 
   let currentAlbum = currentAlbumImmutable.toJS();
@@ -45,7 +47,7 @@ function Album(props) {
       setTitle("歌单");
       setIsMarquee(false);
     }
-  },[currentAlbum]);
+  }, [currentAlbum]);
 
 
   useEffect(() => {
@@ -56,6 +58,10 @@ function Album(props) {
   const handleBack = useCallback(() => {
     setShowStatus(false);
   }, [])
+
+  const musicAnimation = (x, y) => {
+    musicNoteRef.current.startAnimation({ x, y });
+  };
 
   const renderTopDesc = () => {
     return (
@@ -109,7 +115,13 @@ function Album(props) {
 
   const renderSongList = () => {
     return (
-      <SongList>
+      <SongList 
+        songs={currentAlbum.tracks}
+        collectCount={currentAlbum.subscribedCount}
+        showCollect={true}
+        showBackground={true}
+        musicAnimation={musicAnimation}
+      >
         <div className="first_line">
           <div className="play_all">
             <i className="iconfont">&#xe6e3;</i>
@@ -150,7 +162,7 @@ function Album(props) {
       unmountOnExit
       onExited={props.history.goBack}
     >
-      <Container>
+      <Container play={songsCount}>
         <Header ref={headerEl} title={title} handleClick={handleBack} isMarquee={isMarquee}></Header>
         {!isEmptyObject(currentAlbum) ?
           (
@@ -168,6 +180,7 @@ function Album(props) {
           : null
         }
         {enterLoading ? <Loading></Loading> : null}
+        <MusicNote ref={musicNoteRef}></MusicNote>
       </Container>
     </CSSTransition>
   )
@@ -177,6 +190,7 @@ function Album(props) {
 const mapStateToProps = (state) => ({
   currentAlbum: state.getIn(['album', 'currentAlbum']),
   enterLoading: state.getIn(['album', 'enterLoading']),
+  songsCount: state.getIn (['player', 'playList']).size,// 尽量减少 toJS 操作，直接取 size 属性就代表了 list 的长度
 });
 // 映射 dispatch 到 props 上
 const mapDispatchToProps = (dispatch) => {

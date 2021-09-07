@@ -10,7 +10,7 @@ import { renderRoutes } from 'react-router-config';
 
 
 function Rank(props) {
-  const { rankList: list, loading } = props;
+  const { rankList: list, loading, songsCount } = props;
 
   const { getRankListDataDispatch } = props;
 
@@ -24,13 +24,9 @@ function Rank(props) {
   let officialList = rankList.slice(0, globalStartIndex);
   let globalList = rankList.slice(globalStartIndex);
 
-  const enterDetail = (name) => {
-    const idx = filterIdx(name);
-    if(idx === null) {
-      alert("暂无相关数据");
-      return;
-    } 
-}
+  const enterDetail = (detail) => {
+    props.history.push(`/rank/${detail.id}`)
+  }
 
   // 这是渲染榜单列表函数，传入 global 变量来区分不同的布局方式
   const renderRankList = (list, global) => {
@@ -39,7 +35,7 @@ function Rank(props) {
         {
           list.map((item) => {
             return (
-              <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail(item.name)}>
+              <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail(item)}>
                 <div className="img_wrapper">
                   <img src={item.coverImgUrl} alt="" />
                   <div className="decorate"></div>
@@ -70,7 +66,7 @@ function Rank(props) {
   let displayStyle = loading ? { "display": "none" } : { "display": "" };
 
   return (
-    <Container>
+    <Container play={songsCount}>
       <Scroll>
         <div>
           <h1 className="offical" style={displayStyle}> 官方榜 </h1>
@@ -89,6 +85,7 @@ function Rank(props) {
 const mapStateToProps = (state) => ({
   rankList: state.getIn(['rank', 'rankList']),
   loading: state.getIn(['rank', 'loading']),
+  songsCount: state.getIn (['player', 'playList']).size,// 尽量减少 toJS 操作，直接取 size 属性就代表了 list 的长度
 });
 // 映射 dispatch 到 props 上
 const mapDispatchToProps = (dispatch) => {
