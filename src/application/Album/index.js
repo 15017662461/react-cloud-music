@@ -1,6 +1,6 @@
 //Album/index.js
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Container, Menu, TopDesc, SongList, SongItem } from './style';
+import { Container, Menu, TopDesc, SongItem } from './style';
 import { CSSTransition } from 'react-transition-group';
 import Header from './../../baseUI/header/index';
 import Scroll from '../../baseUI/scroll/index';
@@ -10,9 +10,9 @@ import { connect } from 'react-redux';
 import { getAlbumList, changeEnterLoading } from './store/actionCreators'
 import Loading from '../../baseUI/loading/index';
 import MusicNote from "../../baseUI/music-note/index";
+import SongsList from '../SongsList';
 
 export const HEADER_HEIGHT = 45;
-
 
 
 function Album(props) {
@@ -115,7 +115,7 @@ function Album(props) {
 
   const renderSongList = () => {
     return (
-      <SongList 
+      <SongsList 
         songs={currentAlbum.tracks}
         collectCount={currentAlbum.subscribedCount}
         showCollect={true}
@@ -149,7 +149,7 @@ function Album(props) {
             })
           }
         </SongItem>
-      </SongList>
+      </SongsList>
     )
   }
 
