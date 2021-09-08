@@ -14,7 +14,7 @@ import MusicNote from "../../baseUI/music-note/index";
 function Singer(props) {
   const initialHeight = useRef(0);
   const [showStatus, setShowStatus] = useState(true);
-  console.log(props)
+
   const {
     artist: immutableArtist,
     songs: immutableSongs,
