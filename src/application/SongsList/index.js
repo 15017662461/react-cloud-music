@@ -22,7 +22,7 @@ const SongsList = React.forwardRef ((props, refs)=> {
   let songList = (list) => {
     let res = [];
     for (let i = 0; i < list.length; i++) {
-      let item = list [i];
+      let item = list[i];
       res.push (
         <li key={item.id} onClick={(e) => selectItem (e, i)}>
           <span className="index">{i + 1}</span>

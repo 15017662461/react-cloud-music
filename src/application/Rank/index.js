@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getRankList } from './store/index'
-import { filterIndex, filterIdx } from '../../api/utils';
+import { filterIndex } from '../../api/utils';
 import { Container, List, ListItem, SongList } from './style'
 import Scroll from '../../baseUI/scroll'
 import Loading from '../../baseUI/loading';
@@ -18,6 +18,7 @@ function Rank(props) {
 
   useEffect(() => {
     getRankListDataDispatch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let globalStartIndex = filterIndex(rankList);

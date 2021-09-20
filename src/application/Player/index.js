@@ -98,6 +98,7 @@ function Player(props) {
     getLyric(current.id);// 获取歌词
     setCurrentTime(0);// 从头开始播放
     setDuration((current.dt / 1000) | 0);// 时长
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playList, currentIndex]);
 
   useEffect(() => {

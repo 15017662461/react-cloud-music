@@ -4,8 +4,6 @@ import {
 } from "../../../api/request";
 import {
   CHANGE_SINGER_LIST,
-  CHANGE_CATOGORY,
-  CHANGE_ALPHA,
   CHANGE_PAGE_COUNT,
   CHANGE_PULLUP_LOADING,
   CHANGE_PULLDOWN_LOADING,

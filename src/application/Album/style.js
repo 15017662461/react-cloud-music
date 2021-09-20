@@ -189,6 +189,9 @@ export const SongList = styled.div`
         font-size: 10px;
         margin: 0 5px 0 10px;
       }
+      .like{
+        ${style.noWrap()}
+      }
       span {
         font-size: 14px;
         line-height: 34px;

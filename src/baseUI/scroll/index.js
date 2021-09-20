@@ -32,8 +32,6 @@ export const PullDownLoading = styled.div`
 `;
 
 
-
-
 const Scroll = forwardRef((props, ref) => {
   const [bScroll, setBScroll] = useState()
 

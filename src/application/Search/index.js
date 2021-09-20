@@ -46,6 +46,7 @@ function Search(props) {
     // 用了 redux 缓存，不再赘述
     if (!hotList.size)
       getHotKeyWordsDispatch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 由于是传给子组件的方法，尽量用 useCallback 包裹，以使得在依赖未改变，始终给子组件传递的是相同的引用

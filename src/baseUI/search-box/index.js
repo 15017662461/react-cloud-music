@@ -65,12 +65,14 @@ const SearchBox = (props) => {
   useEffect(() => {
     // 注意防抖
     handleQueryDebounce(query);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {
     if (newQuery !== query) {
       setQuery(newQuery);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newQuery]);
 
   const clearQuery = () => {

@@ -17,7 +17,6 @@ export const HEADER_HEIGHT = 45;
 
 function Album(props) {
   const [showStatus, setShowStatus] = useState(true);
-
   const [title, setTitle] = useState("歌单");
   const [isMarquee, setIsMarquee] = useState(false);// 是否跑马灯
 
@@ -129,7 +128,7 @@ function Album(props) {
           </div>
           <div className="add_list">
             <i className="iconfont">&#xe62d;</i>
-            <span > 收藏 ({getCount(currentAlbum.subscribedCount)})</span>
+            <span className="like"> ({getCount(currentAlbum.subscribedCount)})</span>
           </div>
         </div>
         <SongItem>
